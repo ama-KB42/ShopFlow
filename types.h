@@ -1,24 +1,27 @@
 #ifndef TYPE_H
 #define TYPE_H
 
-#define TVA 20f
-#define Frais-de-port 5,90f
-#define Frais-de-port-offert 60f
-#define remise_0  0f
-#define remise_5 100f
-#define remise_10 300f
-#define remise_15 600f
-#define EN_COURS "EN COURS"
+#define TVA 20.0f
+#define Frais_de_port 5.90f
+#define Frais_de_port_offert 60.0f
+#define seuil_remise_5 100.0f
+#define seuil_remise_10 300.0f
+#define seuil_remise_15 600.0f
+#define remise_0 0.0f
+#define remise_5 5.0f
+#define remise_10 10.0f
+#define remise_15 15.0f
+#define EN_COURS "EN_COURS"
 #define EXPEDIEE "EXPEDIEE"
-#define LIVREE   "LIVREE"
-#define ANNULEE  "ANNULEE"
+#define LIVREE "LIVREE"
+#define ANNULEE "ANNULEE"
 
-typedef struct { int Jour ; int Mois ; int Annee} Date;
-typedef struct { char[80] rue ; char[50] ville ; char[6] codePostal ; char[50] pays} Adresse;
-typedef struct { char[12] reference  ; char[60] designation ; char[30] categorie ; float prixUnitaireHT ; int quantiteStock ; int seuilAlerte ; int actif } Produit;
-typedef struct { char[12] refProduit ; char[60] designation ;  int quantite ; float prixUnitaireHT ; float sousTotal} LigneCommande;
-typedef struct { int numero ; int idClient ; Date dateCommande ; char[20] statut ; int nbligne ; int capaciteLigns ;  lignes ligneCommande*  ;  float montantBrutHT ; float tauxRemise ; float montantRemise ; float montantHT ; float montantTVA ; float montantTTC ; float frais de port ; Adresse*  adresseLivraison }Commande;
-typedef { int idClient ; char[50] nom  ;  char[50] prenom ;  char[80] email ; char[15] telephone ; Adresse* adresse ; int  pointsFidelite ;  int nbCommande ;  int capaciteCommandes ;  commande* commande ;  int actif }CLIENT;
-typedef { char [50] nom ;  Produit* produit ;  int nbproduits ;  int capaciteProduits ; CLIENT* client ; int  nbclients ;  int  capaciteClient ;  int numerosuivant ;  int idCLientSuivant }BOUTIQUE;
+typedef struct { int Jour ; int Mois ; int Annee ; } Date;
+typedef struct { char rue[80] ; char ville[50] ; char codePostal[6] ; char pays[50] ; } Adresse;
+typedef struct { char reference[12] ; char designation[60] ; char categorie[30] ; float prixUnitaireHT ; int quantiteStock ; int seuilAlerte ; int actif ; } Produit;
+typedef struct { char refProduit[12] ; char designation[60] ; int quantite ; float prixUnitaireHT ; float sousTotalHT ; } LigneCommande;
+typedef struct { int numero ; int idClient ; Date dateCommande ; char statut[20] ; int nbLignes ; int capaciteLignes ; LigneCommande *lignes ; float montantBrutHT ; float tauxRemise ; float montantRemise ; float montantHT ; float montantTVA ; float montantTTC ; float fraisPort ; Adresse adresseLivraison ; } Commande;
+typedef struct { int idClient ; char nom[50] ; char prenom[50] ; char email[80] ; char telephone[15] ; Adresse adresse ; int pointsFidelite ; int nbCommandes ; int capaciteCommandes ; Commande *commandes ; int actif ; } CLIENT;
+typedef struct { char nom[50] ; Produit *produits ; int nbProduits ; int capaciteProduits ; CLIENT *clients ; int nbClients ; int capaciteClients ; int numeroSuivant ; int idClientSuivant ; } BOUTIQUE;
 
-
+#endif
