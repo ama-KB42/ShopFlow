@@ -17,4 +17,8 @@ typedef { int Jour ; int Mois ; int Annee} Date;
 typedef { char[80] rue ; char[50] ville ; char[6] codePostal ; char[50] pays} Adresse;
 typedef { char[12] reference  ; char[60] designation ; char[30] categorie ; float prixUnitaireHT ; int quantiteStock ; int seuilAlerte ; int actif } Produit;
 typedef { char[12] refProduit ; char[60] designation ;  int quantite ; float prixUnitaireHT ; float sousTotal} LigneCommande;
+typedef { int numero ; int idClient ; Date dateCommande ; char[20] statut ; int nbligne ; int capaciteLigns ;  lignes ligneCommande*  ;  float montantBrutHT ; float tauxRemise ; float montantRemise ; float montantHT ; float montantTVA ; float montantTTC ; float frais de port ; Adresse*  adresseLivraison }Commande;
+typedef { int idClient ; char[50] nom  ;  char[50] prenom ;  char[80] email ; char[15] telephone ; Adresse* adresse ; int  pointsFidelite ;  int nbCommande ;  int capaciteCommandes ;  commande* commande ;  int actif }CLIENT;
+typedef { char [50] nom ;  Produit* produit ;  int nbproduits ;  int capaciteProduits ; CLIENT* client ; int  nbclients ;  int  capaciteClient ;  int numerosuivant ;  int idCLientSuivant }BOUTIQUE;
+
 
