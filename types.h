@@ -13,8 +13,8 @@
 #define LIVREE "LIVREE"
 #define ANNULEE "ANNULEE"
 
-typedef { int Jour ; int Mois ; int Annee}Date;
-typedef { char[80] rue ; char[50] ville ; char[6] codePostal ; char[50] pays}Adresse;
-typedef { char[12] reference  ; char[60] designation ; char[30] categorie ; float prixUnitaireHT ; int quantiteStock ; int seuilAlerte ; int actif }Produit;
-typedef { char[12] refProduit ; char[60] designation ;  int quantite ; float prixUnitaireHT ; float sousTotal}LigneCommande;
+typedef { int Jour ; int Mois ; int Annee} Date;
+typedef { char[80] rue ; char[50] ville ; char[6] codePostal ; char[50] pays} Adresse;
+typedef { char[12] reference  ; char[60] designation ; char[30] categorie ; float prixUnitaireHT ; int quantiteStock ; int seuilAlerte ; int actif } Produit;
+typedef { char[12] refProduit ; char[60] designation ;  int quantite ; float prixUnitaireHT ; float sousTotal} LigneCommande;
 
