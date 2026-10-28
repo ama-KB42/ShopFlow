@@ -10,7 +10,6 @@ void initialiserLignesCommande(Commande *commande) {
 
 int ajouterLigneCommande(Commande *commande, LigneCommande ligne) {
     if (commande == NULL) return 0;
-
     if (commande->nbLignes == commande->capaciteLignes) {
         int nouvelleCapacite 
         if (commande->capaciteLignes == 0) {
@@ -23,7 +22,6 @@ int ajouterLigneCommande(Commande *commande, LigneCommande ligne) {
         commande->lignes = nouvellesLignes;
         commande->capaciteLignes = nouvelleCapacite;
     }
-
     commande->lignes[commande->nbLignes] = ligne;
     commande->nbLignes++;
     return 1;
@@ -35,5 +33,4 @@ void libererLignesCommande(Commande *commande) {
     commande->lignes = NULL;
     commande->nbLignes = 0;
     commande->capaciteLignes = 0;
-}
-
+} 
