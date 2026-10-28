@@ -1,6 +1,5 @@
 #ifndef COMMANDE_H
 #define COMMANDE_H
-
 #include "types.h"
 
 void initialiserLignesCommande(Commande *commande);
