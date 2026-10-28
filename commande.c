@@ -12,7 +12,12 @@ int ajouterLigneCommande(Commande *commande, LigneCommande ligne) {
     if (commande == NULL) return 0;
 
     if (commande->nbLignes == commande->capaciteLignes) {
-        int nouvelleCapacite = (commande->capaciteLignes == 0) ? 2 : commande->capaciteLignes * 2;
+        int nouvelleCapacite 
+        if (commande->capaciteLignes == 0) {
+    nouvelleCapacite = 2;
+} else {
+    nouvelleCapacite = commande->capaciteLignes * 2;
+}
         LigneCommande *nouvellesLignes = realloc(commande->lignes, nouvelleCapacite * sizeof(LigneCommande));
         if (nouvellesLignes == NULL) return 0;
         commande->lignes = nouvellesLignes;
