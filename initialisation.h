@@ -2,7 +2,7 @@
 #define INITIALISATION_H 
 #include "types.h"  
 
-void initialiserBoutique(Boutiuqe *b); 
+void initialiserBoutique(Boutique *b); 
 void detruireBoutique(Boutique *b); 
 
 #endif 
