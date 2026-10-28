@@ -1,7 +1,8 @@
-int nombre;
-scanf("%d",&nombre);
-float prix;
-scanf("%f",&prix);
-char mot[50];
-scanf("%s",&mot);
+#ifndef UTILS_H
+#define UTILS_H
 
+int lireEntier(const char *message, int *valeur);
+int lireReel(const char *message, float *valeur);
+int lireChaine(const char *message, char *chaine, int taille);
+
+#endif
