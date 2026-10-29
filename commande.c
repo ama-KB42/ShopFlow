@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include "commande.h"
-
 void initialiserLignesCommande(Commande *commande) {
     if (commande == NULL) return;
     commande->nbLignes = 0;
@@ -11,7 +8,7 @@ void initialiserLignesCommande(Commande *commande) {
 int ajouterLigneCommande(Commande *commande, LigneCommande ligne) {
     if (commande == NULL) return 0;
     if (commande->nbLignes == commande->capaciteLignes) {
-        int nouvelleCapacite 
+        int nouvelleCapacite;
         if (commande->capaciteLignes == 0) {
     nouvelleCapacite = 2;
 } else {
