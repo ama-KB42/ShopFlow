@@ -2,9 +2,11 @@
 #define COMMANDE_H
 #include "types.h"
 
-void initialiserLignesCommande(Commande *commande);
+void creerCommande(Commande *commande);
+void initialiserLigneCommande(Commande *commande);
 int ajouterLigneCommande(Commande *commande, LigneCommande ligne);
-void libererLignesCommande(Commande *commande);
+void supprimerLigneCommande(Commande *commande);
+void annulerCommande(Commande *commande);
+void afficherCommande(Commande *commande);
 
 #endif
-
