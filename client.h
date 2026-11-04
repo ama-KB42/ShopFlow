@@ -4,6 +4,7 @@
 
 Client *rechercherClient(Boutique *b, int idClient);
 int rechercherEmail(Boutique *b, const char *email);
+float chiffreAffairesClient(Client *c);
 
 void ajouterClient(Boutique *b);
 void modifierClient(Boutique *b);
