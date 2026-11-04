@@ -6,12 +6,21 @@
 #include "produit.h"
 #include "commande.h" 
 
+/* Modele simplifie d'une ligne et d'une commande de test */
+typedef struct { char ref[12]; int qte; } LigneModele;
+typedef struct { int idClient; Date date; char statut[20]; LigneModele lignes[5]; int nbLignes; } CommandeModele;
+
+/* Nombre d'elements d'un tableau statique */
+#define NB_ELEMENTS(tableau) ((int)(sizeof(tableau) / sizeof(tableau[0])))
+
+static int creerCommandeTest(Boutique *b, const CommandeModele *m);
+
 void initialiserBoutique(Boutique *b) {
     strcpy(b->nom, "ShopFlow"); 
-	b->produits = 0; 
+	b->produits = NULL; 
 	b->nbProduits = 0; 
 	b->capaciteProduits = 0; 
-	b->clients = 0; 
+	b->clients = NULL; 
 	b->nbClients = 0; 
 	b->capaciteClients = 0; 
 	b->numeroSuivant = 1001; 
@@ -19,7 +28,7 @@ void initialiserBoutique(Boutique *b) {
 } 
 
 void initialiserDonneesTest(Boutique *b) {
-	/*1. Catalogue boutique : allocation dynamique de 8 emplacements*/
+	/*1. Catalogue boutique : allocation dynamique de 10 emplacements (8 utilises)*/
 	b->capaciteProduits = 10; 
 	b->produits = (Produit *)malloc(b->capaciteProduits * sizeof(Produit)); 
 	if(b->produits == NULL) {
@@ -42,11 +51,11 @@ void initialiserDonneesTest(Boutique *b) {
 		b->produits[b->nbProduits++] = modeleProduits[i]; 
 	} 
 
-	/*2. Clients : allocation dynamique de 5 emplacements*/
+	/*2. Clients : allocation dynamique de 10 emplacements (5 utilises)*/
 	b->capaciteClients = 10; 
 	b->clients = (Client *)malloc(b->capaciteClients * sizeof(Client)); 
 	if (b->clients == NULL) {
-		fprintf(stderr, "Erreur d'allocation (Boutique_clients)"); 
+		fprintf(stderr, "Erreur d'allocation (Boutique_clients)\n"); 
 		b->capaciteClients = 0; 
 		return; 
 	} 
@@ -58,13 +67,13 @@ void initialiserDonneesTest(Boutique *b) {
 		{4,	"MAUREY",		"Aurelia",		"aureliam@gmail.com",	"0669696969",	{"493 cite Pigalle", "Paris", "75009", "France"}, 							0, 0, 0, NULL, 1}, 
 		{5,	"D'ALEXIS",		"Anayo",		"anayod@gmail.com",		"0611223344",	{"67 rue de la Basse-Terre", "Basse-Terre", "97100", "Guadeloupe"},			0, 0, 0, NULL, 1},
 	};
-	for (int i=0; i=b->nbClients; i++) {
-		b->clients[b->nbClients] = modeleClients[i]; 
+	for (int i=0; i<5; i++) {
+		b->clients[b->nbClients++] = modeleClients[i]; 
 	} 
 	b->idClientSuivant = 6; 
 
-	/*3. Commandes : allocation dynamique de 6 emplacements*/ 
-    Commande modeleCommandes[] = {
+	/*3. Commandes : 6 commandes, lignes allouees dynamiquement dans creerCommandeTest*/ 
+    CommandeModele modeleCommandes[] = {
         /* client, date,           statut,   lignes (ref, quantite),                          nb */
         {1, {12,  9, 2026}, LIVREE,   {{"PRD-0001", 1}, {"PRD-0004", 2}, {"PRD-0007", 2}}, 3}, /* 659,50 HT : remise 15 % */
         {2, {25,  9, 2026}, LIVREE,   {{"PRD-0005", 2}, {"PRD-0008", 1}, {"PRD-0006", 1}}, 3}, /* 164,70 HT : remise 5 % */
@@ -99,6 +108,8 @@ void detruireBoutique(Boutique *b) {
 }
 
 
+/* Cree une commande de test a partir d'un modele et la rattache a son client.
+ * Retourne 0 si tout va bien, -1 en cas d'erreur. */
 static int creerCommandeTest(Boutique *b, const CommandeModele *m) {
     Client *cl = rechercherClient(b, m->idClient);
     if (cl == NULL) { 
@@ -128,15 +139,15 @@ static int creerCommandeTest(Boutique *b, const CommandeModele *m) {
         }
         LigneCommande *l = &c.lignes[c.nbLignes++];
         strcpy(l->refProduit, p->reference);
-        strcpy(l->designation, p->designation);     /* libelle fige */
+        strcpy(l->designation, p->designation);
         l->quantite = m->lignes[i].qte;
-        l->prixUnitaireHT = p->prixUnitaireHT;      /* prix fige */
+        l->prixUnitaireHT = p->prixUnitaireHT;
         l->sousTotalHT = l->quantite * l->prixUnitaireHT;
         p->quantiteStock -= l->quantite; 
     } 
     calculCommande(&c);
     if (strcmp(c.statut, ANNULEE) == 0) {
-        for (int i = 0; i < c.nbLignes; i++) {      /* annulation : stock reintegre */
+        for (int i = 0; i < c.nbLignes; i++) { 
             Produit *p = trouverProduit(b, c.lignes[i].refProduit);
             if (p != NULL) p->quantiteStock += c.lignes[i].quantite;
         } 
