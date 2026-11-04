@@ -3,7 +3,6 @@
 #include <string.h>
 #include "types.h"
 #include "statistique.h"
-#include "initialisation.h"
 #include "client.h"
 
 /* FONCTION 1 : Calculer le chiffre d'affaires total HT et TTC */
@@ -89,9 +88,6 @@ void afficherPalmaresProduits(Boutique *b) {
             if (dejaAffiche[p] == 0) {
                 if (meilleur == -1 || quantites[p] > quantites[meilleur]) {
                     meilleur = p;
-                    if (meilleur == -1 || quantites[meilleur] == 0) {
-                        break;
-                    }
                 }
             }
         }
@@ -106,7 +102,6 @@ void afficherPalmaresProduits(Boutique *b) {
 
 /* FONCTION 4 : Classer les clients par chiffre d'affaires HT */
 void afficherPalmaresClients(Boutique *b) {
-    printf("\n===== PALMARES CLIENTS =====\n");
     if (b->nbClients == 0) {
         printf("Aucun client enregistre.\n");
         return;
@@ -143,7 +138,7 @@ void afficherPalmaresClients(Boutique *b) {
     printf("\n==== PALMARES DES CLIENTS ====\n");
     for (int i = 0; i < b->nbClients; i++) {
         int position = rang[i];
-        printf("%d %s %s : %.2f euros HT\n", i + 1, b->clients[position].prenom, b->clients[position].nom, chiffreAffaires[position]);
+        printf("%d. %s %s : %.2f euros HT\n", i + 1, b->clients[position].prenom, b->clients[position].nom, chiffreAffaires[position]);
     }
     free(chiffreAffaires);
     free(rang);
@@ -162,5 +157,48 @@ void afficherAlertesStock(Boutique *b) {
     }
     if (nbAlertes == 0) {
         printf("C'est bon : aucun produit en alerte :)\n");
+    }
+}
+
+/* CREATIVITE 2 : statistiques par categorie de produits
+ * (quantites vendues et chiffre d'affaires brut HT, hors commandes annulees) */
+void afficherStatistiquesCategories(Boutique *b) {
+    printf("\n==== STATISTIQUES PAR CATEGORIE ====\n");
+    printf("%-20s %10s %10s %16s\n", "CATEGORIE", "PRODUITS", "VENDUS", "CA BRUT HT");
+    for (int i = 0; i < b->nbProduits; i++) {
+        /* On ne traite une categorie qu'a sa premiere apparition */
+        int dejaVue = 0;
+        for (int j = 0; j < i; j++) {
+            if (strcmp(b->produits[j].categorie, b->produits[i].categorie) == 0) {
+                dejaVue = 1;
+            }
+        }
+        if (dejaVue == 0) {
+        int nbProduitsCategorie = 0;
+        int quantiteVendue = 0;
+        float chiffreAffaires = 0.0f;
+        for (int p = 0; p < b->nbProduits; p++) {
+            if (strcmp(b->produits[p].categorie, b->produits[i].categorie) == 0) {
+            if (b->produits[p].actif == 1) {
+                nbProduitsCategorie++;
+            }
+            /* Parcours des lignes de toutes les commandes non annulees */
+            for (int c = 0; c < b->nbClients; c++) {
+                for (int k = 0; k < b->clients[c].nbCommandes; k++) {
+                    Commande *cmd = &b->clients[c].commandes[k];
+                    if (strcmp(cmd->statut, ANNULEE) != 0) {
+                        for (int l = 0; l < cmd->nbLignes; l++) {
+                            if (strcmp(cmd->lignes[l].refProduit, b->produits[p].reference) == 0) {
+                                quantiteVendue += cmd->lignes[l].quantite;
+                                chiffreAffaires += cmd->lignes[l].sousTotalHT;
+                            }
+                        }
+                    }
+                }
+            }
+            }
+        }
+        printf("%-20s %10d %10d %16.2f\n", b->produits[i].categorie, nbProduitsCategorie, quantiteVendue, chiffreAffaires);
+        }
     }
 }
