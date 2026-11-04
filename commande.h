@@ -2,11 +2,20 @@
 #define COMMANDE_H
 #include "types.h"
 
-void creerCommande(Commande *commande);
+/* Fonctions de base */
 void initialiserLigneCommande(Commande *commande);
 int ajouterLigneCommande(Commande *commande, LigneCommande ligne);
-void supprimerLigneCommande(Commande *commande);
-void annulerCommande(Commande *commande);
-void afficherCommande(Commande *commande);
+void libererLignesCommande(Commande *commande);
+void calculCommande(Commande *c);
+Commande *rechercherCommande(Boutique *b, int numero);
+void afficherDetailCommande(Commande *c);
+
+/* Fonctionnalites du menu */
+void creerCommande(Boutique *b);
+void ajouterLigne(Boutique *b);
+void supprimerLigne(Boutique *b);
+void changerStatut(Boutique *b);
+void annulerCommande(Boutique *b);
+void afficherCommande(Boutique *b);
 
 #endif
