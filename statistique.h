@@ -8,4 +8,4 @@ void afficherPalmaresProduits(Boutique b);
 void afficherPalmaresClients(Boutique b);
 void afficherAlertesStock(Boutique *b);
 
-#endif
+#endif 
