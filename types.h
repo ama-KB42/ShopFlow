@@ -16,6 +16,9 @@
 #define LIVREE "LIVREE"
 #define ANNULEE "ANNULEE"
 
+/* Fidelite : 1 point par tranche de 10 euros payee TTC (port inclus) */
+#define POINTS_FIDELITE(montant) ((int)((montant) / 10.0f))
+
 typedef struct { int jour ; int mois ; int annee ; } Date;
 typedef struct { char rue[80] ; char ville[50] ; char codePostal[6] ; char pays[50] ; } Adresse;
 typedef struct { char reference[12] ; char designation[60] ; char categorie[30] ; float prixUnitaireHT ; int quantiteStock ; int seuilAlerte ; int actif ; } Produit;
