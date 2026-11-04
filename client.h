@@ -1,10 +1,14 @@
-#ifndef CODE_CLION_CLIENT_H
-#define CODE_CLION_CLIENT_H
+#ifndef CLIENT_H
+#define CLIENT_H
+#include "types.h"
 
-void ajouterClient(Client *c);
-void modifierClient(Client *c);
-void supprimerClient(Client *c);
-void afficherListe(Client *c);
-void afficherClient(Client *c);
+Client *rechercherClient(Boutique *b, int idClient);
+int rechercherEmail(Boutique *b, const char *email);
 
-#endif //CODE_CLION_CLIENT_H
+void ajouterClient(Boutique *b);
+void modifierClient(Boutique *b);
+void supprimerClient(Boutique *b);
+void afficherListe(Boutique *b);
+void afficherClient(Boutique *b);
+
+#endif
