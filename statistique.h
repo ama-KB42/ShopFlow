@@ -3,8 +3,9 @@
 #include "types.h"
 
 void afficherChiffreAffaires(Boutique b);
-void afficherChiffreAffairesPeriode(Boutiqueb, int mois, int annee);
-void afficherTop5Produits(Boutique b);
-void afficherClassementClients(Boutiqueb);
+void afficherChiffreAffairesPeriode(Boutique b, int mois, int annee);
+void afficherPalmaresProduits(Boutique b);
+void afficherPalmaresClients(Boutique b);
+void afficherAlertesStock(Boutique *b);
 
 #endif
