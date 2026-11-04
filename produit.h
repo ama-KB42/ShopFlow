@@ -3,11 +3,14 @@
 
 #include "types.h"
 
-void ajouterProduit(Boutique *b, Produit p);
-void modifierProduit(Boutique *b, Produit p);
-void supprimerProduit(Boutique *b, Produit p);
-void afficherProduit(Produit p);
+Produit *trouverProduit(Boutique *b, const char *reference);
 
-// void rechercherProduit(Boutique *b, Produit p);
+void ajouterProduit(Boutique *b);
+void modifierProduit(Boutique *b);
+void supprimerProduit(Boutique *b);
+void afficherProduit(Produit p);
+void afficherCatalogue(Boutique *b);
+void rechercherProduit(Boutique *b);
+void rechercheMultiCriteres(Boutique *b);
 
 #endif
