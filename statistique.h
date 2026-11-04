@@ -2,10 +2,11 @@
 #define STATISTIQUE_H
 #include "types.h"
 
-void afficherChiffreAffaires(Boutique b);
-void afficherChiffreAffairesPeriode(Boutique b, int mois, int annee);
-void afficherPalmaresProduits(Boutique b);
-void afficherPalmaresClients(Boutique b);
+void afficherChiffreAffaires(Boutique *b);
+void afficherChiffreAffairesPeriode(Boutique *b, int mois, int annee);
+void afficherPalmaresProduits(Boutique *b);
+void afficherPalmaresClients(Boutique *b);
 void afficherAlertesStock(Boutique *b);
+void afficherStatistiquesCategories(Boutique *b);
 
-#endif 
+#endif
